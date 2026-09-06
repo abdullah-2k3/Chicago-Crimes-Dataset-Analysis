@@ -356,32 +356,27 @@ with tab3:
     st.subheader("Crime Frequency By District")
 
     # Step 3: Create a Cartogram-style scatter map (size and color represent incident count)
-    fig_cartogram = px.scatter_mapbox(
-        district_data, 
-        lat='Latitude', 
-        lon='Longitude', 
-        size='Incident Count',  
-        color='Incident Count',  
-        color_continuous_scale='YlOrRd',  
-        hover_name='District',  
-        hover_data=['Incident Count'],  
-        size_max=30,  
-        title="Crime Incidents by District",  
-    )
+    fig_cartogram = px.scatter_map(
+    district_data,
+    lat='Latitude',
+    lon='Longitude',
+    size='Incident Count',
+    color='Incident Count',
+    color_continuous_scale='YlOrRd',
+    hover_name='District',
+    hover_data=['Incident Count'],
+    size_max=30,
+    zoom=10,
+    title="Crime Incidents by District",
+)
 
     
     fig_cartogram.update_layout(
-        mapbox_style="open-street-map",  
-        margin={"r":0,"t":40,"l":0,"b":0},  
-        height=600,
-        title_font=dict(size=24, family="Arial, sans-serif", color="black"),  
-        geo=dict(
-            showland=True,
-            landcolor='rgb(255, 255, 255)',
-            subunitcolor='rgb(255, 255, 255)',
-            countrycolor='rgb(255, 255, 255)'
-        )
-    )
+    map_style="open-street-map",
+    margin={"r": 0, "t": 40, "l": 0, "b": 0},
+    height=600,
+    title_font=dict(size=24, family="Arial, sans-serif"),
+)
 
     # Step 5: Add labels for districts on the map
     for i, row in district_data.iterrows():
@@ -451,7 +446,7 @@ with tab4:
     # Create the map showing crime density (heatmap by district)
     district_counts = df.groupby(['District', 'Latitude', 'Longitude']).size().reset_index(name='Crime Count')
     
-    fig_map = px.density_mapbox(
+    fig_map = px.density_map(
         district_counts,
         lat='Latitude',
         lon='Longitude',
@@ -459,7 +454,7 @@ with tab4:
         radius=10,
         color_continuous_scale='Viridis',
         title=f"Crime Density Map for {selected_district}" if selected_district != 'All' else "Crime Density Map (All Districts)",
-        mapbox_style="carto-positron",
+        map_style="carto-positron",
     )
 
     # Set map size

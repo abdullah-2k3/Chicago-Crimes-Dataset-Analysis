@@ -4,7 +4,7 @@ import plotly.express as px
 # from sqlalchemy import create_engine
 # from sqlalchemy.exc import SQLAlchemyError
 
-st.set_page_config(page_title="Crime Analytics Dashboard", layout="wide")
+st.set_page_config(page_title="Chicago Crimes Analytics Dashboard", layout="wide")
 
 MAX_ROWS = 100000
 
@@ -51,6 +51,7 @@ def load_data():
     dates = pd.read_csv('dates.csv', nrows=MAX_ROWS)
     crime_types = pd.read_csv('crime_types.csv', nrows=MAX_ROWS)
     locations = pd.read_csv('locations.csv', nrows=MAX_ROWS)
+    
     return master_incidents, dates, crime_types, locations
 
 master_incidents, dates, crime_types, locations = load_data()
@@ -185,9 +186,13 @@ with tab2:
 
     # --- Sidebar filter for Primary Type ---
     st.subheader("🔎 Filter Data")
+    crime_type_options = sorted(
+        df['Primary Type'].dropna().unique().tolist(),
+        key=str
+    )
     selected_types = st.multiselect(
         "Select Crime Types (Primary Type):",
-        options=['All'] + sorted(df['Primary Type'].unique().tolist()),  # List of unique crime types with 'All' as the first option
+        options=['All'] + crime_type_options,  # List of unique crime types with 'All' as the first option
         default=['All']  # Default to 'All' selected
     )
 

@@ -457,16 +457,17 @@ with tab4:
         map_style="carto-positron",
     )
 
-    # Set map size
     fig_map.update_layout(
-        mapbox=dict(
-            center=dict(lat=df['Latitude'].mean(), lon=df['Longitude'].mean()),
-            zoom=10,  # Adjust zoom level based on the region's density
+        map=dict(
+            center=dict(
+                lat=df['Latitude'].mean(),
+                lon=df['Longitude'].mean()
+            ),
+            zoom=10
         ),
         height=500
     )
 
-    # Display the charts side by side in columns
     col1, col2 = st.columns(2)
 
     with col1:

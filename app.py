@@ -77,7 +77,7 @@ elif dataset == "Locations":
     st.sidebar.dataframe(locations.head(50))
 
 # Main App
-st.title("🚔 Crime Analytics Dashboard")
+st.title("🚔 Chicago Crimes Analytics Dashboard")
 
 # Tabs
 tab1, tab2, tab3, tab4, tab5, tab6 = st.tabs(["📊 Overview", "📈 Time Series", "🕵️ Crime Types", "📍 Locations", "📈 Comparative Analysis", "📈 Arrest Trend"])
